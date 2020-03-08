@@ -36,3 +36,16 @@ for intent in intents['intents']:
     #adding tags to the class list
     if intent['tag'] not in classes:
       classes.append(intent['tag'])
+
+
+  
+#lowering the cases of the words, stemming them, and simultaneously removing the duplicates
+words = [stemmer.stem(w.lower()) for w in words if w not in ignore]
+words = sorted(list(set(words)))
+
+#removing duplicate classes
+classes = sorted(list(set(classes)))
+
+print(len(documents) , "documents")
+print(len(classes) , "classes" , classes)
+print(len(words) , "unique stem words" , words)
