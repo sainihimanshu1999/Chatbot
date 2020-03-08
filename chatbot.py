@@ -5,6 +5,34 @@ stemmer = LancasterStemmer()
 
 import tensorflow as tf
 import numpy as np
-import tflear
+import tflearn
 import random
-import jso
+import json
+
+from google.colab import files
+files.upload()
+
+
+#import chat bot intents file
+with open('intents.json') as json_data:
+  intents = json.load(json_data)
+
+#running intent file
+
+words = []
+classes = []
+documents = []
+ignore = ['?']
+
+#looping through each sentence in the json file's pattern
+for intent in intents['intents']:
+  for pattern in intent['patterns']:
+    #tokeninzing each word in the sentence
+    w = nltk.word_tokenize(pattern)
+    #add word to the word list
+    words.extend(w)
+    #adding words to the document
+    documents.append((w , intent['tag']))
+    #adding tags to the class list
+    if intent['tag'] not in classes:
+      classes.append(intent['tag'])
